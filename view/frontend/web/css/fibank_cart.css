@@ -1,0 +1,15 @@
+/**
+ * Fibank Cart CSS
+ * Стилове специфични за бутона в количката
+ */
+
+#fibank-cart-button-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Override styles specific for cart page if needed */
+#fibank-cart-button-container .fibank_button {
+  width: 100%;
+  max-width: 300px;
+}

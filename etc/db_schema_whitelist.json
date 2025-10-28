@@ -1,0 +1,15 @@
+{
+    "mtfibank_orders": {
+        "column": {
+            "id": true,
+            "order_id": true,
+            "order_status": true
+        },
+        "index": {
+            "MTFIBANK_ORDERS_ORDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

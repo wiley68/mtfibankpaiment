@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Avalon_Mtfibankpayment/css/fibank_product.css"/>
+        <css src="Avalon_Mtfibankpayment/css/fibank_cart.css"/>
+        <link src="Avalon_Mtfibankpayment/js/fibank_cart.js"/>
+    </head>
+    <body>
+        <referenceContainer name="cart.summary">
+            <block class="Avalon\Mtfibankpayment\Block\CartButtons" name="costompayment_buttons_fibank_cart" template="Avalon_Mtfibankpayment::cart_buttons.phtml" />
+        </referenceContainer>
+    </body>
+</page>

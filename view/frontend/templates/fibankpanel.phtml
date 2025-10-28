@@ -1,0 +1,161 @@
+<?php
+if ($block->isHomePage()) {
+    if ($block->isServerStatus()) { ?>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+            /* fibank float */
+            .fibank_float {
+                z-index: 999 !important;
+                position: fixed !important;
+                width: 60px !important;
+                height: 60px !important;
+                top: calc(100% / 2 - 320px) !important;
+                left: 0px !important;
+                background-color: #ffffff !important;
+                border-top: 1px solid #004282 !important;
+                border-right: 1px solid #004282 !important;
+                border-bottom: 1px solid #004282 !important;
+                color: #FFF !important;
+                border-top-right-radius: 8px !important;
+                border-bottom-right-radius: 8px !important;
+                text-align: center !important;
+                box-shadow: 2px 2px 3px #999 !important;
+                cursor: pointer !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            .fibank-my-float {
+                width: 40px !important;
+                height: 35px !important;
+            }
+
+            .fibank-label-container {
+                z-index: 9999 !important;
+                position: fixed !important;
+                top: calc(100% / 2 - 430px) !important;
+                left: 67px !important;
+                display: table !important;
+                visibility: hidden;
+            }
+
+            .fibank-label-text {
+                width: 410px !important;
+                height: 260px !important;
+                color: #004282 !important;
+                vertical-align: top !important;
+                padding-left: 5px !important;
+                border-radius: 14.5px !important;
+                background-color: #ffffff !important;
+                overflow: none !important;
+            }
+
+            .fibank-label-text-mask {
+                display: flex !important;
+                flex-direction: column !important;
+                height: 100% !important;
+                border-radius: 14.5px !important;
+                background-color: #ffffff !important;
+                -webkit-box-shadow: 0px 0px 30px 0px #000000 !important;
+                box-shadow: 0px 0px 30px 0px #000000 !important;
+            }
+
+            .fibank_header {
+                width: 100% !important;
+                margin: 0 0 7.7px !important;
+                border-radius: 14.5px 14.5px 0px 0px !important;
+                object-fit: contain !important;
+            }
+
+            p.fibank_txt1 {
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                width: 100% !important;
+                padding: 5px 15px !important;
+                margin: 0px !important;
+                font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+                font-weight: 600 !important;
+                font-size: 18px !important;
+                line-height: 18px !important;
+                text-align: center !important;
+                color: #004282 !important;
+                background-color: white !important;
+            }
+
+            p.fibank_txt2 {
+                width: 100% !important;
+                padding: 0px 15px !important;
+                margin: 0px !important;
+                font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+                font-size: 12px !important;
+                line-height: 12px !important;
+                text-align: center !important;
+                color: #414546 !important;
+                background-color: white !important;
+            }
+
+            p.fibank-label-text-a {
+                width: 100% !important;
+                font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+                font-weight: 300 !important;
+                font-size: 14px !important;
+                padding: 5px 15px 0px 15px !important;
+                text-align: center !important;
+                text-decoration: underline !important;
+                color: #004282 !important;
+                cursor: pointer !important;
+            }
+
+            /* fibank float */
+        </style>
+
+        <?php if ($block->getFibankDeviceIs() == "Yes") { ?>
+            <div class="fibank_float" onclick="window.open('#', '_blank');">
+            <?php } else { ?>
+                <div class="fibank_float" onclick="FibankChangeContainer();">
+                <?php } ?>
+                <img src="
+                <?= $block->escapeHtml(
+                    $block->getHelper()->getFibankLiveUrl()
+                ) ?>/dist/img/fibank_logo.png" class="fibank-my-float">
+                </div>
+                <div class="fibank-label-container">
+                    <div class="fibank-label-text">
+                        <div class="fibank-label-text-mask">
+                            <img src="
+                            <?= $block->escapeHtml(
+                                $block->getParamsFibank()->fibank_picture
+                            ) ?>" class="fibank_header">
+                            <p class="fibank_txt1">
+                                <?= $block->escapeHtml(
+                                    $block->getParamsFibank()->fibank_container_txt1
+                                ) ?></p>
+                            <p class="fibank_txt2">
+                                <?= $block->escapeHtml(
+                                    $block->getParamsFibank()->fibank_container_txt2
+                                ) ?></p>
+                            <p class="fibank-label-text-a"><a href="
+                            <?= $block->escapeHtml($block->getParamsFibank()->fibank_logo_url) ?>
+                            " target="_blank" alt="За повече информация">За повече информация</a></p>
+                        </div>
+                    </div>
+                </div>
+                <script type="application/javascript">
+                    function FibankChangeContainer() {
+                        const fibank_label_container = document.getElementsByClassName("fibank-label-container")[0];
+                        if (fibank_label_container.style.visibility == 'visible') {
+                            fibank_label_container.style.visibility = 'hidden';
+                            fibank_label_container.style.opacity = 0;
+                            fibank_label_container.style.transition = 'visibility 0s, opacity 0.5s ease';
+                        } else {
+                            fibank_label_container.style.visibility = 'visible';
+                            fibank_label_container.style.opacity = 1;
+                        }
+                    }
+                </script>
+        <?php
+    }
+}

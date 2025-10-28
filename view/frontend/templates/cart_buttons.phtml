@@ -1,0 +1,305 @@
+<?php
+if ($block->getFibankStatus() == "1") {
+    if ($block->getStatus()) { ?>
+        <div id="fibank-cart-button-container">
+            <?php if ($block->getParamsFibank()->fibank_zaglavie != '') { ?>
+                <div class="fibank_zaglavie">
+                    <?= $block->escapeHtml($block->getParamsFibank()->fibank_zaglavie) ?>
+                </div>
+            <?php } ?>
+            <?php if ($block->escapeHtml($block->getParamsFibank()->fibank_custom_button_status == 1)) { ?>
+                <img
+                    id="btn_fibank_cart"
+                    class="fibank_btn_click fibank_logo"
+                    src="<?= $block->escapeHtml($block->getFibankButtonNormalCustom()) ?>"
+                    alt="Кредитен калкулатор Fibank Credit"
+                    onmouseover="this.src='<?= $block->escapeHtml($block->getFibankButtonHoverCustom()) ?>'"
+                    onmouseout="this.src='<?= $block->escapeHtml($block->getFibankButtonNormalCustom()) ?>'"
+                />
+            <?php } else { ?>
+                <?php if ($block->escapeHtml($block->getParamsFibank()->fibank_isvnoska == 1)) { ?>
+                    <div
+                        id="btn_fibank_cart"
+                        class="fibank_button"
+                    >
+                        <div class="fibank_button_body">
+                            <div class="fibank_button_body_left">
+                                <img
+                                    src="<?= $block->escapeHtml($block->getFibankMiniLogo()) ?>"
+                                    style="width:40px;height:40px;"
+                                />
+                            </div>
+                            <div class="fibank_button_body_right">
+                                <div class="fibank_button_txt1">НА ИЗПЛАЩАНЕ С FIBANK</div>
+                                <div class="fibank_button_line"></div>
+                                <div class="fibank_button_txt2">
+                                <span id="mtfibank_vnoski_txt"><?= $block->escapeHtml($block->getParamsFibank()->fibank_vnoski_default) ?></span>
+                                    ВНОСКИ x
+                                    <span id="mtfibank_vnoska_txt"><?= $block->escapeHtml(number_format($block->getParamsFibank()->fibank_vnoska, 2, '.', '')) ?></span>
+                                    <?= $block->escapeHtml($block->getParamsFibank()->fibank_sign) ?>
+                                    <?php if ($block->escapeHtml($block->getParamsFibank()->fibank_vnoska_second != 0)) { ?>
+                                        (<span id="mtfibank_vnoska_second_txt"><?= $block->escapeHtml($block->getParamsFibank()->fibank_vnoska_second) ?></span>
+                                        <?= $block->escapeHtml($block->getParamsFibank()->fibank_sign_second) ?>)
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fibank_button_bottom">
+                            <div class="fibank_button_body_left">
+                                <img
+                                    src="<?= $block->escapeHtml($block->getFibankMiniLogo()) ?>"
+                                    style="width:40px;height:40px;"
+                                />
+                            </div>
+                            <div class="fibank_button_bottom_right">
+                                КАНДИДАТСТВАЙ
+                            </div>
+                        </div>
+                    </div>
+                <?php } else { ?>
+                    <div
+                        id="btn_fibank_cart"
+                        class="fibank_button"
+                    >
+                        <div class="fibank_button_body">
+                            <div class="fibank_button_body_left">
+                                <img
+                                    src="<?= $block->escapeHtml($block->getFibankMiniLogo()) ?>"
+                                    style="width:40px;height:40px;"
+                                />
+                            </div>
+                            <div class="fibank_button_body_right">
+                                <div class="fibank_button_bottom_txt1">НА ИЗПЛАЩАНЕ С</div>
+                                <div class="fibank_button_line"></div>
+                                <div class="fibank_button_bottom_txt2">
+                                    <img
+                                        src="<?= $block->escapeHtml($block->getFibankMini()) ?>"
+                                        style="width:72px;height:24px;"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fibank_button_bottom">
+                            <div class="fibank_button_body_left">
+                                <img
+                                    src="<?= $block->escapeHtml($block->getFibankMiniLogo()) ?>"
+                                    style="width:40px;height:40px;"
+                                />
+                            </div>
+                            <div class="fibank_button_bottom_right">
+                                КАНДИДАТСТВАЙ
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
+        </div>
+        <input
+            type="hidden"
+            id="fibank_price"
+            value="<?= $block->escapeHtml($block->getPrice()) ?>"
+        />
+        <input
+            type="hidden"
+            id="fibank_cid"
+            value="<?= $block->escapeHtml($block->getFibankCid()) ?>"
+        />
+        <input
+            type="hidden"
+            id="fibank_product_cats"
+            value="<?= $block->escapeHtml($block->getFibankProductCats()) ?>"
+        />
+        <input
+            type="hidden"
+            id="FIBANK_LIVEURL"
+            value="<?= $block->escapeHtml($block->getFibankLiveUrl()) ?>"
+        />
+        <input
+            type="hidden"
+            id="fibank_button_cart_status"
+            value="<?= $block->escapeHtml($block->getParamsFibank()->fibank_button_cart_status) ?>"
+        />
+        <input
+            type="hidden"
+            id="fibank_maxstojnost"
+            value="<?= $block->escapeHtml($block->getParamsFibank()->fibank_maxstojnost) ?>"
+        />
+        <input
+            type="hidden"
+            id="fibank_eur"
+            value="<?= $block->escapeHtml($block->getEur()) ?>"
+        />
+        <input
+            type="hidden"
+            id="fibank_currency_code"
+            value="<?= $block->escapeHtml($block->getCurrencyCode()) ?>"
+        />
+        <div
+            id="fibank-product-popup-container"
+            class="modalpayment_fibank"
+        >
+            <div class="modalpayment-content_fibank">
+                <div id="fibank_body">
+                    <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_PopUp_Detailed_v1) ?>">
+                        <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_Mask) ?>">
+                            <img
+                                src="<?= $block->escapeHtml($block->getFibankClasses()->fibank_picture) ?>"
+                                class="fibank_header"
+                            >
+                            <p class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_product_name) ?>">Купи на
+                                изплащане със стоков кредит от Fibank</p>
+                            <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_body_panel_txt3) ?>">
+                                <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_body_panel_txt3_left) ?>">
+                                    <div
+                                        class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_kredit_panel_left) ?>">
+                                        <div class="fibank_sumi_txt">
+                                            Размер на кредита
+                                            (<?php if ($block->escapeHtml($block->getParamsFibank()->fibank_vnoska_second == 0)) { ?>
+                                                <?= $block->escapeHtml($block->getParamsFibank()->fibank_sign) ?>
+                                            <?php } else { ?>
+                                                <?= $block->escapeHtml($block->getParamsFibank()->fibank_sign) ?>/<?= $block->escapeHtml($block->getParamsFibank()->fibank_sign_second) ?>
+                                            <?php } ?>)
+                                        </div>
+                                        <div>
+                                            <input
+                                                class="fibank_mesecna_price"
+                                                type="text"
+                                                id="fibank_price_txt"
+                                                readonly="readonly"
+                                                value="<?= $block->escapeHtml($block->getPrice()) ?>"
+                                            />
+                                        </div>
+                                    </div>
+                                    <p>
+                                        Този калкулатор е само информативен и показва всички схеми за желания от теб кредит.
+                                        За да продължиш напред, задължително трябва да преминеш през кошницата и след това
+                                        да продължиш с избора на параметрите по кредита.
+                                    </p>
+                                </div>
+                                <div
+                                    class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_body_panel_txt3_right) ?>">
+                                    <select
+                                        id="fibank_pogasitelni_vnoski_input"
+                                        class="fibank_txt_right"
+                                        onchange="fibank_pogasitelni_vnoski_input_change();"
+                                        onfocus="fibank_pogasitelni_vnoski_input_focus(this.value);"
+                                    >
+                                        <?php for ($i = 3; $i <= 60; $i++) { ?>
+                                            <?php
+                                            $vnoska_visible = false;
+                                            if ($block->getParamsFibank()->fibank_vnoski_visible & (pow(2, $i - 3))) {
+                                                $vnoska_visible = true;
+                                            } else {
+                                                $vnoska_visible = false;
+                                                if ($block->getParamsFibank()->fibank_vnoski_default == $i) {
+                                                    $vnoska_visible = true;
+                                                }
+                                            }
+                                            ?>
+                                            <?php if ($vnoska_visible) {
+                                                ?>
+                                                <option
+                                                    value="<?= $block->escapeHtml($i) ?>"
+                                                    <?php if ($block->getParamsFibank()->fibank_vnoski_default == $i) {
+                                                        echo "selected";
+                                                    }
+                                                    ?>
+                                                ><?= $block->escapeHtml($i) ?> месеца</option>
+                                            <?php }
+                                            ?>
+                                        <?php } ?>
+                                    </select>
+                                    <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_sumi_panel) ?>">
+                                        <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_kredit_panel) ?>">
+                                            <div class="fibank_sumi_txt">
+                                                Месечна вноска
+                                                (<?php if ($block->escapeHtml($block->getParamsFibank()->fibank_vnoska_second == 0)) { ?>
+                                                    <?= $block->escapeHtml($block->getParamsFibank()->fibank_sign) ?>
+                                                <?php } else { ?>
+                                                    <?= $block->escapeHtml($block->getParamsFibank()->fibank_sign) ?>/<?= $block->escapeHtml($block->getParamsFibank()->fibank_sign_second) ?>
+                                                <?php } ?>)
+                                            </div>
+                                            <div>
+                                                <input
+                                                    class="fibank_mesecna_price"
+                                                    type="text"
+                                                    id="fibank_vnoska"
+                                                    readonly="readonly"
+                                                    value="<?= $block->escapeHtml(number_format($block->getParamsFibank()->fibank_vnoska, 2, '.', '')) ?>"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_kredit_panel) ?>">
+                                            <div class="fibank_sumi_txt">
+                                                Обща дължима сума
+                                                (<?php if ($block->escapeHtml($block->getParamsFibank()->fibank_vnoska_second == 0)) { ?>
+                                                    <?= $block->escapeHtml($block->getParamsFibank()->fibank_sign) ?>
+                                                <?php } else { ?>
+                                                    <?= $block->escapeHtml($block->getParamsFibank()->fibank_sign) ?>/<?= $block->escapeHtml($block->getParamsFibank()->fibank_sign_second) ?>
+                                                <?php } ?>)
+                                            </div>
+                                            <div>
+                                                <input
+                                                    class="fibank_mesecna_price"
+                                                    type="text"
+                                                    id="fibank_obshtozaplashtane"
+                                                    readonly="readonly"
+                                                    value="<?= $block->escapeHtml(number_format($block->getParamsFibank()->fibank_vnoska, 2, '.', '')) ?>"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_sumi_panel) ?>">
+                                        <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_kredit_panel) ?>">
+                                            <div class="fibank_sumi_txt">ГЛП (%)</div>
+                                            <div>
+                                                <input
+                                                    class="fibank_mesecna_price"
+                                                    type="text"
+                                                    id="fibank_glp"
+                                                    readonly="readonly"
+                                                    value="<?= $block->escapeHtml(number_format($block->getParamsFibank()->fibank_glp, 2, ".", "")) ?>"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_kredit_panel) ?>">
+                                            <div class="fibank_sumi_txt">ГПР (%)</div>
+                                            <div>
+                                                <input
+                                                    class="fibank_mesecna_price"
+                                                    type="text"
+                                                    id="fibank_gpr"
+                                                    readonly="readonly"
+                                                    value="<?= $block->escapeHtml(number_format($block->getParamsFibank()->fibank_gpr, 2, ".", "")) ?>"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_body_panel_txt4) ?>">
+                                Изчисленията са направени при допускането за първа падежна дата след 30 дни и са с насочваща
+                                цел.
+                            </div>
+                            <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_body_panel_footer) ?>">
+                                <div
+                                    class="fibank_btn"
+                                    id="fibank_buy_credit"
+                                >Добави в количката</div>
+                                <div
+                                    class="fibank_btn_cancel"
+                                    id="fibank_back_credit"
+                                >Откажи</div>
+                                <div class="<?= $block->escapeHtml($block->getFibankClasses()->fibank_body_panel_left) ?>">
+                                    <div class="fibank_txt_footer">ver. <?= $block->escapeHtml($block->getModuleVersion()) ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+}

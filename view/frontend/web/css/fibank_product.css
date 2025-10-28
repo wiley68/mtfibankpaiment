@@ -1,0 +1,507 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* product */
+.fibank_zaglavie {
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+.fibank_btn_click {
+  cursor: pointer !important;
+}
+.fibank_logo {
+  max-width: 155px !important;
+  max-height: 55px !important;
+}
+.fibank_button {
+  height: 60px !important;
+  width: 240px !important;
+  background-color: #004282;
+  cursor: pointer !important;
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+}
+.fibank_button:hover {
+  background-color: #d8232a;
+}
+.fibank_button:hover > :not(:last-child) {
+  display: none;
+}
+.fibank_button:hover > :last-child {
+  display: flex;
+}
+.fibank_button_bottom {
+  display: none;
+  align-items: center !important;
+  width: 100% !important;
+}
+.fibank_button_body {
+  display: flex;
+  align-items: center !important;
+  width: 100% !important;
+}
+.fibank_button_body_left {
+  display: flex;
+  width: 50px !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.fibank_button_body_right {
+  flex: 1;
+  display: flex;
+  flex-direction: column !important;
+  padding: 5px !important;
+}
+.fibank_button_bottom_right {
+  flex: 1;
+  display: flex;
+  justify-content: center !important;
+  color: #fef2f2 !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  text-shadow: 1px 1px #004f9d !important;
+  text-align: center !important;
+}
+.fibank_button_txt1 {
+  color: white !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  text-shadow: 1px 1px #004f9d !important;
+  text-align: center !important;
+}
+.fibank_button_txt2 {
+  color: white !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  text-shadow: 1px 1px #004f9d !important;
+  text-align: center !important;
+}
+.fibank_button_bottom_txt1 {
+  color: white !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-shadow: 1px 1px #004f9d !important;
+  text-align: center !important;
+}
+.fibank_button_bottom_txt2 {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.fibank_button_line {
+  border-bottom: 1px solid #ddeeff !important;
+  margin-bottom: 2px !important;
+}
+.fibank_button_custom {
+  cursor: pointer !important;
+}
+/* calculator popup */
+.modalpayment_fibank {
+  display: none;
+  position: fixed !important;
+  z-index: 4000000 !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: auto !important;
+  background-color: rgb(0, 0, 0) !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  padding-top: 20px !important;
+  color: #1f2937 !important;
+}
+.modalpayment-content_fibank {
+  position: relative !important;
+  margin: auto !important;
+  padding: 0 !important;
+  max-width: 1100px !important;
+}
+.fibank_body {
+  padding: 0px !important;
+  height: 100% !important;
+}
+.fibank_PopUp_Detailed_v1 {
+  width: 1100px !important;
+  background-color: #ffffff !important;
+  overflow: hidden !important;
+  margin: auto !important;
+  border: 1px solid #9ca3af !important;
+  box-shadow: 2px 2px 10px #004282 !important;
+}
+.fibankm_PopUp_Detailed_v1 {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #ffffff !important;
+  overflow: hidden !important;
+  border: 1px solid #9ca3af !important;
+  box-shadow: 2px 2px 10px #004282 !important;
+}
+.fibank_Mask {
+  display: flex !important;
+  flex-direction: column !important;
+  background-color: #ffffff !important;
+  -webkit-box-shadow: 0px 0px 30px 0px #000000 !important;
+  box-shadow: 0px 0px 30px 0px #000000 !important;
+}
+.fibankm_Mask {
+  display: flex !important;
+  flex-direction: column !important;
+  background-color: #ffffff !important;
+  -webkit-box-shadow: 0px 0px 30px 0px #000000 !important;
+  box-shadow: 0px 0px 30px 0px #000000 !important;
+}
+.fibank_header {
+  width: 100% !important;
+  margin: 0 0 7.7px !important;
+  object-fit: contain !important;
+}
+p.fibank_product_name {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  padding: 15px 57px 30px 57px !important;
+  margin: 0px !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 24px !important;
+  line-height: 24px !important;
+  color: #004282 !important;
+  text-align: center !important;
+  user-select: none !important;
+}
+p.fibankm_product_name {
+  padding: 15px 17px 30px 17px !important;
+  margin: 0px !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 24px !important;
+  line-height: 24px !important;
+  text-align: left !important;
+  color: #004282 !important;
+  background-color: white !important;
+  text-align: center !important;
+  user-select: none !important;
+}
+.fibank_body_panel_txt3 {
+  display: flex !important;
+  flex-direction: row !important;
+  height: 300px !important;
+  padding: 0px 15px 0px 15px !important;
+}
+.fibank_body_panel_txt4 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 14px !important;
+  padding: 0px 15px 0px 15px !important;
+  user-select: none !important;
+}
+.fibankm_body_panel_txt3 {
+  height: 730px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0px 15px 0px 15px !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
+  user-select: none !important;
+}
+.fibankm_body_panel_txt4 {
+  display: flex !important;
+  flex-direction: column !important;
+  text-align: center !important;
+  padding: 0px 15px 0px 15px !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  margin-bottom: 5px !important;
+}
+.fibank_body_panel_txt3_left {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 45% !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
+  padding-right: 10px !important;
+}
+.fibank_body_panel_txt3_left p {
+  font-size: 18px !important;
+  user-select: none !important;
+}
+.fibank_body_panel_txt3_left :last-child {
+  font-size: 14px !important;
+  color: #d8232a !important;
+}
+.fibankm_body_panel_txt3_left {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
+  padding-right: 10px !important;
+}
+.fibankm_body_panel_txt3_left p {
+  font-size: 18px !important;
+  user-select: none !important;
+}
+.fibankm_body_panel_txt3_left :last-child {
+  font-size: 14px !important;
+  color: #d8232a !important;
+}
+.fibank_body_panel_txt3_right {
+  width: 55% !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
+  padding-left: 10px !important;
+}
+.fibankm_body_panel_txt3_right {
+  width: 100% !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
+  padding-left: 10px !important;
+}
+select.fibank_txt_right {
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 22px !important;
+  border-left: 0px none white !important;
+  border-top: 0px none white !important;
+  border-right: 0px none white !important;
+  border-bottom: 1px solid #b0b0b0 !important;
+  background-color: white !important;
+  width: 100% !important;
+  height: 36px !important;
+}
+select.fibank_txt_right:active,
+select.fibank_txt_right:focus {
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 22px !important;
+  border-left: 0px none white !important;
+  border-top: 0px none white !important;
+  border-right: 0px none white !important;
+  border-bottom: 1px solid #b0b0b0 !important;
+  width: 100% !important;
+  outline: none !important;
+  height: 36px !important;
+}
+.fibank_sumi_panel {
+  display: flex !important;
+  flex-direction: row !important;
+  width: 100% !important;
+  height: 110px !important;
+  margin-top: 20px !important;
+  background-color: white !important;
+}
+.fibankm_sumi_panel {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 210px !important;
+  margin-top: 20px !important;
+  background-color: white !important;
+}
+.fibank_kredit_panel {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 50% !important;
+  height: 100px !important;
+  border-radius: 30px !important;
+  -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+  text-align: center !important;
+  user-select: none !important;
+  -moz-user-select: none !important;
+  -khtml-user-select: none !important;
+  -webkit-user-select: none !important;
+  -o-user-select: none !important;
+  margin-right: 10px !important;
+  background-color: white !important;
+}
+.fibankm_kredit_panel {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100px !important;
+  border-radius: 30px !important;
+  -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+  text-align: center !important;
+  user-select: none !important;
+  -moz-user-select: none !important;
+  -khtml-user-select: none !important;
+  -webkit-user-select: none !important;
+  -o-user-select: none !important;
+  margin-right: 10px !important;
+  margin-bottom: 10px !important;
+  background-color: white !important;
+}
+.fibank_kredit_panel_left {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 60% !important;
+  height: 100px !important;
+  font-weight: 500 !important;
+  border-radius: 30px !important;
+  -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+  text-align: center !important;
+  user-select: none !important;
+  -moz-user-select: none !important;
+  -khtml-user-select: none !important;
+  -webkit-user-select: none !important;
+  -o-user-select: none !important;
+  margin-right: 10px !important;
+  margin-bottom: 20px !important;
+  background-color: white !important;
+}
+.fibankm_kredit_panel_left {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100px !important;
+  font-weight: 500 !important;
+  border-radius: 30px !important;
+  -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) !important;
+  text-align: center !important;
+  user-select: none !important;
+  -moz-user-select: none !important;
+  -khtml-user-select: none !important;
+  -webkit-user-select: none !important;
+  -o-user-select: none !important;
+  margin-right: 10px !important;
+  margin-bottom: 10px !important;
+  background-color: white !important;
+}
+.fibank_sumi_txt {
+  display: flex !important;
+  height: 30px !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 13px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+input[type='text'].fibank_mesecna_price {
+  border: 0px none white !important;
+  background-color: white !important;
+  padding: 0px !important;
+  pointer-events: none !important;
+  width: 80% !important;
+  height: 100% !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-size: 22px !important;
+  text-align: center !important;
+  box-shadow: none !important;
+  color: #1f2937 !important;
+}
+.fibank_btn {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 48px !important;
+  background-color: #d8232a !important;
+  border-radius: 12px !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  line-height: 24px !important;
+  margin-left: 5px !important;
+  padding: 0px 20px !important;
+  color: #fee2e2 !important;
+  cursor: pointer !important;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
+  user-select: none !important;
+  -moz-user-select: none !important;
+  -khtml-user-select: none !important;
+  -webkit-user-select: none !important;
+  -o-user-select: none !important;
+}
+.fibank_btn:hover {
+  color: white !important;
+}
+.fibank_btn_cancel {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 48px !important;
+  background-color: #075985 !important;
+  border-radius: 12px !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  line-height: 24px !important;
+  margin-left: 5px !important;
+  padding: 0px 20px !important;
+  color: #f3f4f6 !important;
+  cursor: pointer !important;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.4) !important;
+  user-select: none !important;
+  -moz-user-select: none !important;
+  -khtml-user-select: none !important;
+  -webkit-user-select: none !important;
+  -o-user-select: none !important;
+}
+.fibank_btn_cancel:hover {
+  color: white !important;
+}
+.fibank_body_panel_footer {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 20px 15px !important;
+  background-color: #004282 !important;
+}
+.fibankm_body_panel_footer {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 20px 15px !important;
+  background-color: #004282 !important;
+}
+.fibank_body_panel_left {
+  flex: 1 !important;
+  height: 100% !important;
+  text-align: left !important;
+}
+.fibankm_body_panel_left {
+  width: 100% !important;
+  height: 100% !important;
+  text-align: left !important;
+}
+.fibank_txt_footer {
+  padding-left: 57px !important;
+  padding-right: 25px !important;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+  font-weight: 100 !important;
+  color: #f3f4f6 !important;
+  font-size: 14px !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+  text-align: right !important;
+  user-select: none !important;
+}
