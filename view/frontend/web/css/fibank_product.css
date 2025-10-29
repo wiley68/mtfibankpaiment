@@ -241,7 +241,7 @@ p.fibankm_product_name {
   font-size: 18px !important;
   user-select: none !important;
 }
-.fibank_body_panel_txt3_left :last-child {
+.fibank_body_panel_txt3_left > p:last-child {
   font-size: 14px !important;
   color: #d8232a !important;
 }
@@ -261,7 +261,7 @@ p.fibankm_product_name {
   font-size: 18px !important;
   user-select: none !important;
 }
-.fibankm_body_panel_txt3_left :last-child {
+.fibankm_body_panel_txt3_left > p:last-child {
   font-size: 14px !important;
   color: #d8232a !important;
 }

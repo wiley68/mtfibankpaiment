@@ -187,7 +187,8 @@ if ($block->getFibankStatus() == "1") {
                                         <?php for ($i = 3; $i <= 60; $i++) { ?>
                                             <?php
                                             $vnoska_visible = false;
-                                            if ($block->getParamsFibank()->fibank_vnoski_visible & (pow(2, $i - 3))) {
+                                            $bit_check = $block->getParamsFibank()->fibank_vnoski_visible & (pow(2, $i - 3));
+                                            if ($bit_check) {
                                                 $vnoska_visible = true;
                                             } else {
                                                 $vnoska_visible = false;

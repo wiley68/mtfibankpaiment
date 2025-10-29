@@ -51,58 +51,67 @@
               <div class="fibank_body_panel_txt3">
                 <div class="fibank_body_panel_txt3_left">
                   <div class="fibank_kredit_panel_left">
-                    <div class="fibank_sumi_txt">Размер на кредита</div>
+                    <div class="fibank_sumi_txt">
+                      Размер на кредита
+                      (<span data-bind="text: getCurrencyDisplayText()"></span>)
+                    </div>
                     <div>
                       <input
                         class="fibank_mesecna_price"
                         type="text"
                         id="fibank_price_txt"
                         readonly="readonly"
+                        data-bind="value: fibankPrice"
                       />
                     </div>
                   </div>
+                  <p>
+                    Този калкулатор е само информативен и показва всички схеми за желания от теб кредит.
+                    За да продължиш напред, задължително трябва да преминеш през кошницата и след това
+                    да продължиш с избора на параметрите по кредита.
+                  </p>
                 </div>
                 <div class="fibank_body_panel_txt3_right">
                   <select
                     id="fibank_pogasitelni_vnoski_input"
                     class="fibank_txt_right"
-                    onchange="window.fibankCheckoutChange && window.fibankCheckoutChange();"
-                    onfocus="window.fibankCheckoutFocus && window.fibankCheckoutFocus(this.value);"
+                    data-bind="
+                      options: fibankVnoskiOptions,
+                      optionsText: 'label',
+                      optionsValue: 'value',
+                      value: fibankSelectedVnoski,
+                      event: { focus: onVnoskiFocus, change: onVnoskiChange }
+                    "
                   >
-                    <!-- options will be constrained by server response; we render 3..60 -->
-                    <option value="3">3 месеца</option>
-                    <option value="6">6 месеца</option>
-                    <option value="9">9 месеца</option>
-                    <option
-                      value="12"
-                      selected
-                    >12 месеца</option>
-                    <option value="18">18 месеца</option>
-                    <option value="24">24 месеца</option>
-                    <option value="36">36 месеца</option>
-                    <option value="48">48 месеца</option>
-                    <option value="60">60 месеца</option>
                   </select>
                   <div class="fibank_sumi_panel">
                     <div class="fibank_kredit_panel">
-                      <div class="fibank_sumi_txt">Месечна вноска</div>
+                      <div class="fibank_sumi_txt">
+                        Месечна вноска
+                        (<span data-bind="text: getCurrencyDisplayText()"></span>)
+                      </div>
                       <div>
                         <input
                           class="fibank_mesecna_price"
                           type="text"
                           id="fibank_vnoska"
                           readonly="readonly"
+                          data-bind="value: fibankVnoska"
                         />
                       </div>
                     </div>
                     <div class="fibank_kredit_panel">
-                      <div class="fibank_sumi_txt">Обща дължима сума</div>
+                      <div class="fibank_sumi_txt">
+                        Обща дължима сума
+                        (<span data-bind="text: getCurrencyDisplayText()"></span>)
+                      </div>
                       <div>
                         <input
                           class="fibank_mesecna_price"
                           type="text"
                           id="fibank_obshtozaplashtane"
                           readonly="readonly"
+                          data-bind="value: fibankObshtozaplashtane"
                         />
                       </div>
                     </div>
@@ -116,6 +125,7 @@
                           type="text"
                           id="fibank_glp"
                           readonly="readonly"
+                          data-bind="value: fibankGlp"
                         />
                       </div>
                     </div>
@@ -127,6 +137,7 @@
                           type="text"
                           id="fibank_gpr"
                           readonly="readonly"
+                          data-bind="value: fibankGpr"
                         />
                       </div>
                     </div>
