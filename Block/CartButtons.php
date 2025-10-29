@@ -33,7 +33,7 @@ class CartButtons extends \Magento\Framework\View\Element\Template
     protected $_curl;
 
     /**
-     * @var Arr
+     * @var object
      */
     protected $_paramsfibank;
 
@@ -53,9 +53,9 @@ class CartButtons extends \Magento\Framework\View\Element\Template
     protected $_fibank_eur;
 
     /**
-     * @var \Magento\Checkout\Model\Cart
+     * @var \Magento\Checkout\Model\Session
      */
-    protected $_cart;
+    protected $_checkoutSession;
 
     /**
      * CartButtons constructor Doc Comment
@@ -66,7 +66,7 @@ class CartButtons extends \Magento\Framework\View\Element\Template
      * @param \Magento\Framework\HTTP\Client\Curl $curl
      * @param \Magento\Framework\App\Request\Http $request_http
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Checkout\Model\Cart $cart
+     * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param array $data
      */
     public function __construct(
@@ -74,29 +74,31 @@ class CartButtons extends \Magento\Framework\View\Element\Template
         \Magento\Framework\HTTP\Client\Curl $curl,
         \Magento\Framework\App\Request\Http $request_http,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Checkout\Model\Cart $cart,
+        \Magento\Checkout\Model\Session $checkoutSession,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->_curl = $curl;
         $this->_request_http = $request_http;
         $this->_storeManager = $storeManager;
-        $this->_cart = $cart;
+        $this->_checkoutSession = $checkoutSession;
         $this->_fibank_eur = $this->retrieveEur();
         $this->_paramsfibank = $this->retrieveParamsFibank();
     }
 
     /**
-     * CartButtons getCart Doc Comment
+     * CartButtons getQuote Doc Comment
      *
-     * CartButtons getCart function,
-     * return cart info
+     * CartButtons getQuote function,
+     * return quote info
      *
-     * @return \Magento\Checkout\Model\Cart
+     * @return \Magento\Quote\Model\Quote
      */
-    public function getCart()
+    public function getQuote()
     {
-        return $this->_cart;
+        /** @var \Magento\Quote\Model\Quote $quote */
+        $quote = $this->_checkoutSession->getQuote();
+        return $quote;
     }
 
     /**
@@ -118,8 +120,8 @@ class CartButtons extends \Magento\Framework\View\Element\Template
             $fibank_cid = "";
         }
 
-        $cart = $this->getCart();
-        $cartItems = $cart->getItems();
+        $quote = $this->getQuote();
+        $cartItems = $quote->getAllItems();
 
         // Calculate total amount from cart items
         $cartTotal = 0;
@@ -132,7 +134,9 @@ class CartButtons extends \Magento\Framework\View\Element\Template
         // Get all category IDs from cart items
         $fibank_product_cats = $this->getFibankProductCats();
 
-        $fibank_currency_code = $this->_storeManager->getStore()->getCurrentCurrencyCode();
+        /** @var \Magento\Store\Model\Store $store */
+        $store = $this->_storeManager->getStore();
+        $fibank_currency_code = $store->getCurrentCurrencyCode();
         $fibank_sign_second = $this->_fibank_eur == 2 || $this->_fibank_eur == 3 ? 'лв.' : '€';
         switch ($this->_fibank_eur) {
             case 0:
@@ -273,21 +277,31 @@ class CartButtons extends \Magento\Framework\View\Element\Template
      */
     public function getFibankProductCats()
     {
-        $cart = $this->getCart();
-        $cartItems = $cart->getItems();
+        $quote = $this->getQuote();
+        $cartItems = $quote->getAllItems();
 
-        // Get all category IDs from cart items
-        $allCats = [];
+        $commonCats = null;
+
         foreach ($cartItems as $item) {
             $product = $item->getProduct();
             $cats = $product->getCategoryIds();
-            foreach ($cats as $cat_id) {
-                if (!in_array($cat_id, $allCats)) {
-                    $allCats[] = $cat_id;
-                }
+
+            if ($commonCats === null) {
+                // The first product — initialize with its categories
+                $commonCats = $cats;
+            } else {
+                // Take only the common categories with the current product
+                $commonCats = array_intersect($commonCats, $cats);
+            }
+
+            // If there are no common categories — there is no sense to continue
+            if (empty($commonCats)) {
+                return '0';
             }
         }
-        return implode('_', $allCats);
+
+        // If there is a result after the loop — return it as a string with "_"
+        return !empty($commonCats) ? implode('_', $commonCats) : '0';
     }
 
     /**
@@ -296,7 +310,7 @@ class CartButtons extends \Magento\Framework\View\Element\Template
      * CartButtons getParamsFibank function,
      * return params
      *
-     * @return \Avalon\Mtfibankpayment\Block\Arr
+     * @return object|null
      */
     public function getParamsFibank()
     {
@@ -322,11 +336,13 @@ class CartButtons extends \Magento\Framework\View\Element\Template
      * CartButtons getCurrencyCode function,
      * return params
      *
-     * @return int
+     * @return string
      */
     public function getCurrencyCode()
     {
-        return $this->_storeManager->getStore()->getCurrentCurrencyCode();
+        /** @var \Magento\Store\Model\Store $store */
+        $store = $this->_storeManager->getStore();
+        return $store->getCurrentCurrencyCode();
     }
 
     /**
@@ -338,8 +354,8 @@ class CartButtons extends \Magento\Framework\View\Element\Template
      */
     public function getPrice()
     {
-        $cart = $this->getCart();
-        $cartItems = $cart->getItems();
+        $quote = $this->getQuote();
+        $cartItems = $quote->getAllItems();
 
         // Calculate total amount from cart items
         $cartTotal = 0;
@@ -348,7 +364,9 @@ class CartButtons extends \Magento\Framework\View\Element\Template
         }
 
         $fibank_price = $cartTotal;
-        $fibank_currency_code = $this->_storeManager->getStore()->getCurrentCurrencyCode();
+        /** @var \Magento\Store\Model\Store $store */
+        $store = $this->_storeManager->getStore();
+        $fibank_currency_code = $store->getCurrentCurrencyCode();
         switch ($this->_fibank_eur) {
             case 0:
                 break;
@@ -377,8 +395,8 @@ class CartButtons extends \Magento\Framework\View\Element\Template
     public function getStatus()
     {
         if ($this->_paramsfibank != null) {
-            $cart = $this->getCart();
-            $cartItems = $cart->getItems();
+            $quote = $this->getQuote();
+            $cartItems = $quote->getAllItems();
 
             // Calculate total amount from cart items
             $cartTotal = 0;
@@ -438,7 +456,9 @@ class CartButtons extends \Magento\Framework\View\Element\Template
         } else {
             $fibank_status = "";
         }
-        $fibank_currency_code = $this->_storeManager->getStore()->getCurrentCurrencyCode();
+        /** @var \Magento\Store\Model\Store $store */
+        $store = $this->_storeManager->getStore();
+        $fibank_currency_code = $store->getCurrentCurrencyCode();
         return ($fibank_status && ($fibank_currency_code == "EUR" || $fibank_currency_code == "BGN"));
     }
 
@@ -513,7 +533,7 @@ class CartButtons extends \Magento\Framework\View\Element\Template
      *
      * CartButtons getFibankClasses function,
      *
-     * @return Object
+     * @return object
      */
     public function getFibankClasses()
     {
@@ -553,7 +573,7 @@ class CartButtons extends \Magento\Framework\View\Element\Template
             $classes['fibank_product_name'] = "fibank_product_name";
             $classes['fibank_body_panel_txt3'] = "fibank_body_panel_txt3";
             $classes['fibank_body_panel_txt4'] = "fibank_body_panel_txt4";
-            $classes['fibank_body_panel_txt3_left'] = "fibankm_body_panel_txt3_left";
+            $classes['fibank_body_panel_txt3_left'] = "fibank_body_panel_txt3_left";
             $classes['fibank_body_panel_txt3_right'] = "fibank_body_panel_txt3_right";
             $classes['fibank_sumi_panel'] = "fibank_sumi_panel";
             $classes['fibank_kredit_panel'] = "fibank_kredit_panel";

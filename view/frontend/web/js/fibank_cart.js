@@ -1,5 +1,16 @@
+/**
+ * Last valid number of installments.
+ * Used to restore the value on invalid selection.
+ * @type {number|undefined}
+ */
 let old_vnoski_fibank;
 
+/**
+ * Creates an XHR request with CORS support (falls back to XDomainRequest for old IE).
+ * @param {('GET'|'POST'|'PUT'|'DELETE'|'PATCH'|'HEAD'|'OPTIONS')} method - HTTP method
+ * @param {string} url - Target URL
+ * @returns {XMLHttpRequest|null} Initialized XHR object or null if unsupported
+ */
 function createCORSRequest(method, url) {
   var xhr = new XMLHttpRequest();
   if ('withCredentials' in xhr) {
@@ -13,22 +24,27 @@ function createCORSRequest(method, url) {
   return xhr;
 }
 
+/**
+ * Stores the current valid number of installments on focus,
+ * so it can be restored on invalid change.
+ * @param {number} _old_vnoski - Current valid number of installments
+ */
 function fibank_pogasitelni_vnoski_input_focus(_old_vnoski) {
   old_vnoski_fibank = _old_vnoski;
 }
 
 /**
- * Изчислява цената на количката с оглед опции
- * @param {number} fibank_eur - EUR code за валута
- * @param {string} fibank_currency_code - Валута код
- * @param {number} fibank_price - Базова цена
- * @returns {number} Изчислена цена
+ * Calculates the cart price considering currency options.
+ * @param {number} fibank_eur - EUR mode code for currency handling
+ * @param {string} fibank_currency_code - Currency code
+ * @param {number} fibank_price - Base price
+ * @returns {number} Calculated price
  */
 function calculateCartPrice(fibank_eur, fibank_currency_code, fibank_price) {
-  // Парсиране към число
+  // Parse to number
   const fibank_price_parsed = parseFloat(fibank_price);
 
-  // Прилагане на валутни конверсии
+  // Apply currency conversions
   let fibank_priceall = fibank_price_parsed;
   switch (fibank_eur) {
     case 0:
@@ -46,18 +62,14 @@ function calculateCartPrice(fibank_eur, fibank_currency_code, fibank_price) {
       }
       break;
   }
-  console.log(fibank_eur);
-  console.log(fibank_currency_code);
-  console.log(fibank_price);
-  console.log(fibank_priceall);
 
   return fibank_priceall;
 }
 
 /**
- * Обновява стойностите в цената в попъпа и бутона
- * @param {number} fibank_priceall - Обща цена
- * @param {number} fibank_eur - EUR code за валута
+ * Updates the price values shown in the popup and on the button.
+ * @param {number} fibank_priceall - Total price
+ * @param {number} fibank_eur - EUR mode code for currency handling
  */
 function updateCartPriceDisplay(fibank_priceall, fibank_eur) {
   const fibank_price_txt = document.getElementById('fibank_price_txt');
@@ -79,8 +91,8 @@ function updateCartPriceDisplay(fibank_priceall, fibank_eur) {
 }
 
 /**
- * Обновява стойностите на бутона динамично след промяна на цената
- * Изправя AJAX заявка за да изчисли новите вноски и ги отразява в бутона
+ * Dynamically updates the button values after price changes.
+ * Sends an AJAX request to compute new installments and reflects them on the button.
  */
 function updateButtonValues() {
   const fibank_cid = document.getElementById('fibank_cid').value;
@@ -95,7 +107,7 @@ function updateButtonValues() {
   const fibank_maxstojnost =
     document.getElementById('fibank_maxstojnost').value;
 
-  // Изчисляване на новата цена
+  // Calculate the new price
   const fibank_price_elem = document.getElementById('fibank_price').value;
   const fibank_priceall = calculateCartPrice(
     fibank_eur,
@@ -103,15 +115,15 @@ function updateButtonValues() {
     fibank_price_elem
   );
 
-  // Проверка дали цената не е над максималната
+  // Check if the price exceeds the maximum
   if (fibank_priceall > parseFloat(fibank_maxstojnost)) {
-    return; // Не обновяваме ако е над максималната
+    return; // Do not update if it exceeds the maximum
   }
 
-  // Вземане на дефолтните вноски
+  // Get the default number of installments
   const fibank_button_txt = document.querySelector('.fibank_button_txt2');
   if (fibank_button_txt) {
-    // Извличане на дефолтния брой вноски от текста
+    // Extract default number of installments from text
     const defaultVnoskiMatch = fibank_button_txt.querySelector(
       '#mtfibank_vnoski_txt'
     );
@@ -119,7 +131,7 @@ function updateButtonValues() {
     if (defaultVnoskiMatch && defaultVnoskiMatch.textContent) {
       defaultVnoski = parseInt(defaultVnoskiMatch.textContent);
     } else {
-      // Опитване да се вземе от скритият input
+      // Try to get it from the hidden input
       const fibank_vnoski_input = document.getElementById(
         'fibank_pogasitelni_vnoski_input'
       );
@@ -128,7 +140,7 @@ function updateButtonValues() {
       }
     }
 
-    // AJAX заявка за изчисляване на новите вноски
+    // AJAX request to calculate new installments
     const xmlhttpro = createCORSRequest(
       'GET',
       FIBANK_LIVEURL +
@@ -145,13 +157,22 @@ function updateButtonValues() {
     xmlhttpro.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         try {
+          /**
+           * @typedef {Object} FibankResponse
+           * @property {number|string} fibank_vnoska - Monthly installment amount
+           * @property {any} fibank_options - Available options/validations from the server
+           * @property {boolean} fibank_is_visible - Visibility/validity flag
+           * @property {number|string} [fibank_gpr]
+           * @property {number|string} [fibank_glp]
+           */
+          /** @type {FibankResponse} */
           const response = JSON.parse(this.response);
           const fibank_vnoska = parseFloat(response.fibank_vnoska);
           const options = response.fibank_options;
           const fibank_is_visible = response.fibank_is_visible;
 
           if (fibank_is_visible && options) {
-            // Обновяване на стойностите в бутона
+            // Update values in the button
             const mtfibank_vnoski_txt = document.getElementById(
               'mtfibank_vnoski_txt'
             );
@@ -192,6 +213,11 @@ function updateButtonValues() {
   }
 }
 
+/**
+ * Handles a change in the number of installments: sends a request to the service,
+ * calculates and updates related values (installment, APR, interest, total payment)
+ * and the UI elements.
+ */
 function fibank_pogasitelni_vnoski_input_change() {
   const fibank_eur = parseInt(document.getElementById('fibank_eur').value);
   const fibank_vnoski = parseFloat(
@@ -219,11 +245,13 @@ function fibank_pogasitelni_vnoski_input_change() {
   );
   xmlhttpro.onreadystatechange = function () {
     if (this.readyState == 4) {
-      var options = JSON.parse(this.response).fibank_options;
-      var fibank_vnoska = parseFloat(JSON.parse(this.response).fibank_vnoska);
-      var fibank_gpr_res = parseFloat(JSON.parse(this.response).fibank_gpr);
-      var fibank_glp_res = parseFloat(JSON.parse(this.response).fibank_glp);
-      var fibank_is_visible = JSON.parse(this.response).fibank_is_visible;
+      /** @type {FibankResponse} */
+      var parsed = JSON.parse(this.response);
+      var options = parsed.fibank_options;
+      var fibank_vnoska = parseFloat(parsed.fibank_vnoska);
+      var fibank_gpr_res = parseFloat(parsed.fibank_gpr);
+      var fibank_glp_res = parseFloat(parsed.fibank_glp);
+      var fibank_is_visible = parsed.fibank_is_visible;
       if (fibank_is_visible) {
         if (options) {
           const mtfibank_vnoski_txt = document.getElementById(
@@ -285,14 +313,14 @@ function fibank_pogasitelni_vnoski_input_change() {
           fibank_glp.value = fibank_glp_res.toFixed(2);
           old_vnoski_fibank = fibank_vnoski;
         } else {
-          alert('Избраният брой погасителни вноски е под минималния.');
+          alert('The selected number of installments is below the minimum.');
           var fibank_vnoski_input = document.getElementById(
             'fibank_pogasitelni_vnoski_input'
           );
           fibank_vnoski_input.value = old_vnoski_fibank;
         }
       } else {
-        alert('Избраният брой погасителни вноски е над максималния.');
+        alert('The selected number of installments is above the maximum.');
         var fibank_vnoski_input = document.getElementById(
           'fibank_pogasitelni_vnoski_input'
         );
@@ -303,6 +331,10 @@ function fibank_pogasitelni_vnoski_input_change() {
   xmlhttpro.send();
 }
 
+/**
+ * Initializes event handlers for buttons and the popup on the cart page,
+ * and sets up automatic calculation/updating of values.
+ */
 document.addEventListener('DOMContentLoaded', function () {
   const btn_fibank_cart = document.getElementById('btn_fibank_cart');
   if (btn_fibank_cart !== null) {
@@ -348,9 +380,9 @@ document.addEventListener('DOMContentLoaded', function () {
           fibank_pogasitelni_vnoski_input_change();
         } else {
           alert(
-            'Максимално позволената цена за кредит ' +
+            'The maximum allowed credit price ' +
               parseFloat(fibank_maxstojnost.value).toFixed(2) +
-              ' е надвишена!'
+              ' has been exceeded!'
           );
         }
       }
@@ -371,34 +403,5 @@ document.addEventListener('DOMContentLoaded', function () {
       // Redirect to checkout with payment method pre-selected
       window.location.href = '/checkout/?payment_method=mtfibankpaymentmethod';
     });
-
-    // Function to update the cart calculations
-    function updateCartCalculations() {
-      const fibank_eur = parseInt(document.getElementById('fibank_eur').value);
-      const fibank_currency_code = document.getElementById(
-        'fibank_currency_code'
-      ).value;
-
-      // Изчисляване на новата цена
-      const fibank_priceall = calculatePriceWithOptions(
-        fibank_eur,
-        fibank_currency_code,
-        fibank_price.value
-      );
-
-      // Обновяване на изгледа
-      updatePriceDisplay(fibank_priceall, fibank_eur);
-
-      // If the popup is open, update the calculations
-      if (
-        fibankProductPopupContainer &&
-        fibankProductPopupContainer.style.display === 'block'
-      ) {
-        fibank_pogasitelni_vnoski_input_change();
-      } else {
-        // If the popup is closed, update the values in the button
-        updateButtonValues();
-      }
-    }
   }
 });
