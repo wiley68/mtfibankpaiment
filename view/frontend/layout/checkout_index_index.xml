@@ -6,6 +6,10 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Avalon_Mtfibankpayment::css/fibank_cart.css"/>
+        <css src="Avalon_Mtfibankpayment::css/fibank_product.css"/>
+    </head>
     <body>
         <referenceBlock name="checkout.root">
             <arguments>

@@ -34,15 +34,126 @@
       <!-- ko template: getTemplate() --><!-- /ko -->
       <!--/ko-->
     </div>
+    <div
+      id="fibank-product-popup-container"
+      class="modalpayment_fibank"
+    >
+      <div class="modalpayment-content_fibank">
+        <div id="fibank_body">
+          <div class="fibank_PopUp_Detailed_v1">
+            <div class="fibank_Mask">
+              <img
+                src=""
+                data-bind="attr: {'src': getFibankPicture()}"
+                class="fibank_header"
+              >
+              <p class="fibank_product_name">Купи на изплащане със стоков кредит от Fibank</p>
+              <div class="fibank_body_panel_txt3">
+                <div class="fibank_body_panel_txt3_left">
+                  <div class="fibank_kredit_panel_left">
+                    <div class="fibank_sumi_txt">Размер на кредита</div>
+                    <div>
+                      <input
+                        class="fibank_mesecna_price"
+                        type="text"
+                        id="fibank_price_txt"
+                        readonly="readonly"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="fibank_body_panel_txt3_right">
+                  <select
+                    id="fibank_pogasitelni_vnoski_input"
+                    class="fibank_txt_right"
+                    onchange="window.fibankCheckoutChange && window.fibankCheckoutChange();"
+                    onfocus="window.fibankCheckoutFocus && window.fibankCheckoutFocus(this.value);"
+                  >
+                    <!-- options will be constrained by server response; we render 3..60 -->
+                    <option value="3">3 месеца</option>
+                    <option value="6">6 месеца</option>
+                    <option value="9">9 месеца</option>
+                    <option
+                      value="12"
+                      selected
+                    >12 месеца</option>
+                    <option value="18">18 месеца</option>
+                    <option value="24">24 месеца</option>
+                    <option value="36">36 месеца</option>
+                    <option value="48">48 месеца</option>
+                    <option value="60">60 месеца</option>
+                  </select>
+                  <div class="fibank_sumi_panel">
+                    <div class="fibank_kredit_panel">
+                      <div class="fibank_sumi_txt">Месечна вноска</div>
+                      <div>
+                        <input
+                          class="fibank_mesecna_price"
+                          type="text"
+                          id="fibank_vnoska"
+                          readonly="readonly"
+                        />
+                      </div>
+                    </div>
+                    <div class="fibank_kredit_panel">
+                      <div class="fibank_sumi_txt">Обща дължима сума</div>
+                      <div>
+                        <input
+                          class="fibank_mesecna_price"
+                          type="text"
+                          id="fibank_obshtozaplashtane"
+                          readonly="readonly"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fibank_sumi_panel">
+                    <div class="fibank_kredit_panel">
+                      <div class="fibank_sumi_txt">ГЛП (%)</div>
+                      <div>
+                        <input
+                          class="fibank_mesecna_price"
+                          type="text"
+                          id="fibank_glp"
+                          readonly="readonly"
+                        />
+                      </div>
+                    </div>
+                    <div class="fibank_kredit_panel">
+                      <div class="fibank_sumi_txt">ГПР (%)</div>
+                      <div>
+                        <input
+                          class="fibank_mesecna_price"
+                          type="text"
+                          id="fibank_gpr"
+                          readonly="readonly"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="fibank_body_panel_footer">
+                <div
+                  class="fibank_btn_cancel"
+                  id="fibank_back_credit"
+                >Затвори</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     С избора си да финансирате покупката чрез Fibank Вие декларирате, че сте
     запознат с Информацията относно обработването на лични данни на физически
     лица от Fibank.
     <br />
-    <a
-      target="_blank"
-      href="https://www.fibank.bg/bg/za-nas/korporativno-upravlenie/syotvetstvie/lichni-danni"
-    >Информация относно обработването на лични данни на физически лица от
-      Fibank</a>
+    <div style="margin: 10px 0;">
+      <a
+        href="#"
+        id="fibank-plans-link"
+      >Погасителни планове</a>
+    </div>
     <div
       id="loading-overlay"
       data-bind="visible: fibankloading"

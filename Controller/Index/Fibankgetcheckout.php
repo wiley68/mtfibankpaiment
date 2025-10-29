@@ -145,12 +145,24 @@ class Fibankgetcheckout implements \Magento\Framework\App\Action\HttpPostActionI
             $fibank_status_cp = $paramsfibank->fibank_status;
 
             $fibank_purcent = floatval($paramsfibank->fibank_purcent);
-            $fibank_vnoski_default = (int)$paramsfibank->fibank_vnoski_default;
+            $fibank_vnoski_default = (int) $paramsfibank->fibank_vnoski_default;
             if (($fibank_purcent == 0) && ($fibank_vnoski_default <= 6)) {
                 $fibank_minstojnost = 100;
             }
 
-            if (($fibank_status_cp == 0) ||
+            $json['fibank_picture'] =
+                $helper->getFibankLiveUrl() .
+                '/calculators/assets/img/fibank' .
+                $paramsfibank->fibank_reklama .
+                '.png';
+            $json['fibankm_picture'] =
+                $helper->getFibankLiveUrl() .
+                '/calculators/assets/img/fibankm' .
+                $paramsfibank->fibank_reklama .
+                '.png';
+
+            if (
+                ($fibank_status_cp == 0) ||
                 ($fibank_price < $fibank_minstojnost) ||
                 ($fibank_price > $fibank_maxstojnost)
             ) {
